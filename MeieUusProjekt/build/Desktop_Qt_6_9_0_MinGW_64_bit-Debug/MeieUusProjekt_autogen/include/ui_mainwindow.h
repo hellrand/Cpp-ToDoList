@@ -36,6 +36,7 @@ public:
     QLabel *label_2;
     QDateEdit *deadlineEdit;
     QPushButton *deleteAllButton;
+    QPushButton *saveTasksButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -74,10 +75,13 @@ public:
         deleteAllButton = new QPushButton(centralwidget);
         deleteAllButton->setObjectName("deleteAllButton");
         deleteAllButton->setGeometry(QRect(520, 360, 101, 32));
+        saveTasksButton = new QPushButton(centralwidget);
+        saveTasksButton->setObjectName("saveTasksButton");
+        saveTasksButton->setGeometry(QRect(400, 360, 101, 32));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 24));
+        menubar->setGeometry(QRect(0, 0, 800, 25));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -97,6 +101,7 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "Deadline:", nullptr));
         deadlineEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "dd.MM.yyyy", nullptr));
         deleteAllButton->setText(QCoreApplication::translate("MainWindow", "Delete all", nullptr));
+        saveTasksButton->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
     } // retranslateUi
 
 };

@@ -1,18 +1,23 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "QMessageBox"
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->deadlineEdit->setDate(QDate::currentDate());
 
     // Connecting buttons
     connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
-    //connect(ui->deleteAllButton, &QPushButton::clicked, this, &MainWindow::on_deleteAllButton_clicked);
 
 
+    // Loads all tasks from file on start
+    loadTasksFromFile();
 
 }
 
@@ -41,7 +46,7 @@ void MainWindow::on_addTaskButton_clicked() {
 
         QString taskWithDeadline = QString("%1 (Deadline: %2),      %3")
         .arg(taskText)
-        .arg(deadline.toString("dd-MM-yyyy"))
+        .arg(deadline.toString("dd.MM.yyyy"))
         .arg(timeInfo);
 
         ui->taskListWidget->addItem(taskWithDeadline);
@@ -65,5 +70,46 @@ void MainWindow::on_deleteAllButton_clicked() {
     if (reply == QMessageBox::Yes) {
         ui->taskListWidget->clear();
     }
+}
+
+void MainWindow::on_saveTasksButton_clicked() {
+    QString fileName = "todolist.txt";  // Save to fixed file name
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Error", "Cannot open 'todolist.txt' for writing.");
+        return;
+    }
+
+    QTextStream out(&file);
+    for (int i = 0; i < ui->taskListWidget->count(); ++i) {
+        QListWidgetItem *item = ui->taskListWidget->item(i);
+        out << item->text() << "\n";
+    }
+
+    file.close();
+    QMessageBox::information(this, "Saved", "All tasks saved to 'todolist.txt'.");
+}
+
+void MainWindow::loadTasksFromFile() {
+    QString fileName = "todolist.txt";
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        // Optional: show a warning only if the file is expected to exist
+        return; // Do nothing if the file doesn't exist
+    }
+
+    QTextStream in(&file);
+    ui->taskListWidget->clear();  // Clear current tasks
+
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        if (!line.trimmed().isEmpty()) {
+            ui->taskListWidget->addItem(line);
+        }
+    }
+
+    file.close();
 }
 
