@@ -102,7 +102,7 @@
      </rect>
     </property>
     <property name="displayFormat">
-     <string>mm-dd-yyyy</string>
+     <string>dd.MM.yyyy</string>
     </property>
     <property name="calendarPopup">
      <bool>true</bool>
@@ -135,7 +135,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
