@@ -22,18 +22,31 @@ MainWindow::~MainWindow()
 void MainWindow::on_addTaskButton_clicked() {
     QString taskText = ui->taskLineEdit->text();
     QDate deadline = ui->deadlineEdit->date();
+    QDate today = QDate::currentDate();
 
     if (!taskText.isEmpty()) {
-        QString taskWithDeadline = QString("%1 (Deadline: %2)")
+        int daysLeft = today.daysTo(deadline);
+
+        QString timeInfo;
+        if (daysLeft > 0) {
+            timeInfo = QString("%1 days left").arg(daysLeft);
+        } else if (daysLeft == 0) {
+            timeInfo = "Due today!";
+        } else {
+            timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
+        }
+
+
+        QString taskWithDeadline = QString("%1 (Deadline: %2),      %3")
         .arg(taskText)
-            .arg(deadline.toString("dd-MM-yyyy"));  // Use "MM" not "mm" for month
+        .arg(deadline.toString("dd-MM-yyyy"))
+        .arg(timeInfo);
 
         ui->taskListWidget->addItem(taskWithDeadline);
         ui->taskLineEdit->clear();
     }
 }
 
-// See on hiline pähkel
 void MainWindow::on_deleteButton_clicked() {
     int row = ui->taskListWidget->currentRow();
     if (row >= 0) {

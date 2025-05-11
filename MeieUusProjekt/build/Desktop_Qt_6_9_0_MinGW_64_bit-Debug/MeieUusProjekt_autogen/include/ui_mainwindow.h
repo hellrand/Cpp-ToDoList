@@ -90,7 +90,7 @@ public:
         addTaskButton->setText(QCoreApplication::translate("MainWindow", "Add task", nullptr));
         deleteButton->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Task name:", nullptr));
-        label_2->setText(QCoreApplication::translate("MainWindow", "Dealline:", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Deadline:", nullptr));
         deadlineEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "mm-dd-yyyy", nullptr));
     } // retranslateUi
 
