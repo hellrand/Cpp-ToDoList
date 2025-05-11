@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connecting buttons
     connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
-    connect(ui->deleteButton, &QPushButton::clicked, this, &MainWindow::on_deleteButton_clicked);
+   // connect(ui->deleteButton, &QPushButton::clicked, this, &MainWindow::on_deleteButton_clicked);
 
 
 }
@@ -20,9 +20,15 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_addTaskButton_clicked() {
-    QString task = ui->taskLineEdit->text();
-    if (!task.isEmpty()) {
-        ui->taskListWidget->addItem(task);
+    QString taskText = ui->taskLineEdit->text();
+    QDate deadline = ui->deadlineEdit->date();
+
+    if (!taskText.isEmpty()) {
+        QString taskWithDeadline = QString("%1 (Deadline: %2)")
+        .arg(taskText)
+            .arg(deadline.toString("dd-MM-yyyy"));  // Use "MM" not "mm" for month
+
+        ui->taskListWidget->addItem(taskWithDeadline);
         ui->taskLineEdit->clear();
     }
 }

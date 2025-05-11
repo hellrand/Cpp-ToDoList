@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-a5d93cdf05c71b695a1c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "MeieUusProjekt",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "MeieUusProjekt::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MeieUusProjekt-Debug-5f34454f3c76e8cf51f2.json",
+					"name" : "MeieUusProjekt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MeieUusProjekt_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MeieUusProjekt_autogen-Debug-76140221c069f348be61.json",
+					"name" : "MeieUusProjekt_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MeieUusProjekt_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MeieUusProjekt_autogen_timestamp_deps-Debug-4aea27bc58a6d5aa4b90.json",
+					"name" : "MeieUusProjekt_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
