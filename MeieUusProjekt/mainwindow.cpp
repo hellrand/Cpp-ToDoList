@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "QMessageBox"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connecting buttons
     connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
-   // connect(ui->deleteButton, &QPushButton::clicked, this, &MainWindow::on_deleteButton_clicked);
+    //connect(ui->deleteAllButton, &QPushButton::clicked, this, &MainWindow::on_deleteAllButton_clicked);
+
 
 
 }
@@ -52,6 +54,16 @@ void MainWindow::on_deleteButton_clicked() {
     if (row >= 0) {
         QListWidgetItem *item = ui->taskListWidget->takeItem(row);
         delete item;
+    }
+}
+
+void MainWindow::on_deleteAllButton_clicked() {
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Confirm Delete All",
+                                  "Are you sure you want to delete all tasks?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        ui->taskListWidget->clear();
     }
 }
 

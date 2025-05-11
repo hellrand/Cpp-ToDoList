@@ -21,6 +21,7 @@ public:
 private slots:
     void on_addTaskButton_clicked();
     void on_deleteButton_clicked();
+    void on_deleteAllButton_clicked();
 
 private:
     Ui::MainWindow *ui;

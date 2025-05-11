@@ -35,6 +35,7 @@ public:
     QLabel *label;
     QLabel *label_2;
     QDateEdit *deadlineEdit;
+    QPushButton *deleteAllButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -70,10 +71,13 @@ public:
         deadlineEdit->setGeometry(QRect(120, 50, 221, 25));
         deadlineEdit->setCalendarPopup(true);
         deadlineEdit->setDate(QDate(2025, 5, 1));
+        deleteAllButton = new QPushButton(centralwidget);
+        deleteAllButton->setObjectName("deleteAllButton");
+        deleteAllButton->setGeometry(QRect(520, 360, 101, 32));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 24));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -91,7 +95,8 @@ public:
         deleteButton->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Task name:", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Deadline:", nullptr));
-        deadlineEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "mm-dd-yyyy", nullptr));
+        deadlineEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "dd.MM.yyyy", nullptr));
+        deleteAllButton->setText(QCoreApplication::translate("MainWindow", "Delete all", nullptr));
     } // retranslateUi
 
 };
