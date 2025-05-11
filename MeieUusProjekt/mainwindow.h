@@ -2,6 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDate>
+#include <QVector>
+
+struct TaskItem {
+    QString text;
+    QDate deadline;
+};
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,9 +31,12 @@ private slots:
     void on_deleteButton_clicked();
     void on_deleteAllButton_clicked();
     void on_saveTasksButton_clicked();
+    void on_sortButton_clicked();
 
 
 private:
     Ui::MainWindow *ui;
+    void updateTaskListDisplay();
+    QVector<TaskItem> taskList;
 };
 #endif // MAINWINDOW_H

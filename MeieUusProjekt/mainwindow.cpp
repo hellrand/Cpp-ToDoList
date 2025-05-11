@@ -4,6 +4,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
+#include <algorithm>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connecting buttons
     connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
+    connect(ui->sortButton, &QPushButton::clicked, this, &MainWindow::on_sortButton_clicked);
 
 
     // Loads all tasks from file on start
@@ -43,6 +46,9 @@ void MainWindow::on_addTaskButton_clicked() {
             timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
         }
 
+
+        TaskItem task{taskText, deadline};
+        taskList.append(task);
 
         QString taskWithDeadline = QString("%1 (Deadline: %2),      %3")
         .arg(taskText)
@@ -89,6 +95,35 @@ void MainWindow::on_saveTasksButton_clicked() {
 
     file.close();
     QMessageBox::information(this, "Saved", "All tasks saved to 'todolist.txt'.");
+}
+
+void MainWindow::on_sortButton_clicked() {
+    std::sort(taskList.begin(), taskList.end(), [](const TaskItem &a, const TaskItem &b) {
+        return a.deadline < b.deadline;
+    });
+
+    ui->taskListWidget->clear();
+    QDate today = QDate::currentDate();
+
+    for (const TaskItem &task : taskList) {
+        int daysLeft = today.daysTo(task.deadline);
+        QString timeInfo;
+
+        if (daysLeft > 0) {
+            timeInfo = QString("%1 days left").arg(daysLeft);
+        } else if (daysLeft == 0) {
+            timeInfo = "Due today!";
+        } else {
+            timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
+        }
+
+        QString displayText = QString("%1 (Deadline: %2),      %3")
+                                  .arg(task.text)
+                                  .arg(task.deadline.toString("dd-MM-yyyy"))
+                                  .arg(timeInfo);
+
+        ui->taskListWidget->addItem(displayText);
+    }
 }
 
 void MainWindow::loadTasksFromFile() {

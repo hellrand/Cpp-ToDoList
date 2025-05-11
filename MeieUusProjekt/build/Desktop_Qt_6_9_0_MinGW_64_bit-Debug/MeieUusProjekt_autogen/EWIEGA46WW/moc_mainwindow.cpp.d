@@ -1,5 +1,7 @@
 C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/MeieUusProjekt_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/mainwindow.h \
   C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/MeieUusProjekt_autogen/moc_predefs.h \
+  C:/Qt/6.9.0/mingw_64/include/QtCore/QDate \
+  C:/Qt/6.9.0/mingw_64/include/QtCore/QVector \
   C:/Qt/6.9.0/mingw_64/include/QtCore/q17memory.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/q20iterator.h \
@@ -21,6 +23,7 @@ C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0
   C:/Qt/6.9.0/mingw_64/include/QtCore/qbytearrayalgorithms.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qbytearraylist.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qbytearrayview.h \
+  C:/Qt/6.9.0/mingw_64/include/QtCore/qcalendar.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qchar.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qcompare.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qcompare_impl.h \
@@ -34,6 +37,7 @@ C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0
   C:/Qt/6.9.0/mingw_64/include/QtCore/qcontiguouscache.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qdatastream.h \
+  C:/Qt/6.9.0/mingw_64/include/QtCore/qdatetime.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qdebug.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qendian.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qexceptionhandling.h \
@@ -53,6 +57,7 @@ C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0
   C:/Qt/6.9.0/mingw_64/include/QtCore/qlatin1stringview.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qline.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qlist.h \
+  C:/Qt/6.9.0/mingw_64/include/QtCore/qlocale.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qlogging.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qmalloc.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qmap.h \
@@ -122,6 +127,7 @@ C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0
   C:/Qt/6.9.0/mingw_64/include/QtCore/qutf8stringview.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qvarlengtharray.h \
+  C:/Qt/6.9.0/mingw_64/include/QtCore/qvector.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qversiontagging.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qxptype_traits.h \
   C:/Qt/6.9.0/mingw_64/include/QtCore/qyieldcpu.h \
