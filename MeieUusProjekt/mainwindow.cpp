@@ -5,6 +5,7 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <algorithm>
+#include <QDebug>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connecting buttons
     connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
-    connect(ui->sortButton, &QPushButton::clicked, this, &MainWindow::on_sortButton_clicked);
+    //connect(ui->sortButton, &QPushButton::clicked, this, &MainWindow::on_sortButton_clicked);
 
 
     // Loads all tasks from file on start
@@ -32,31 +33,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_addTaskButton_clicked() {
     QString taskText = ui->taskLineEdit->text();
     QDate deadline = ui->deadlineEdit->date();
-    QDate today = QDate::currentDate();
 
     if (!taskText.isEmpty()) {
-        int daysLeft = today.daysTo(deadline);
-
-        QString timeInfo;
-        if (daysLeft > 0) {
-            timeInfo = QString("%1 days left").arg(daysLeft);
-        } else if (daysLeft == 0) {
-            timeInfo = "Due today!";
-        } else {
-            timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
-        }
-
-
         TaskItem task{taskText, deadline};
-        taskList.append(task);
-
-        QString taskWithDeadline = QString("%1 (Deadline: %2),      %3")
-        .arg(taskText)
-        .arg(deadline.toString("dd.MM.yyyy"))
-        .arg(timeInfo);
-
-        ui->taskListWidget->addItem(taskWithDeadline);
+        taskList.append(task);  // ✅ only modify the vector
         ui->taskLineEdit->clear();
+        updateTaskListDisplay();  // ✅ rebuild the entire list from the sorted/updated vector
     }
 }
 
@@ -65,6 +47,7 @@ void MainWindow::on_deleteButton_clicked() {
     if (row >= 0) {
         QListWidgetItem *item = ui->taskListWidget->takeItem(row);
         delete item;
+        taskList.remove(row);
     }
 }
 
@@ -75,6 +58,7 @@ void MainWindow::on_deleteAllButton_clicked() {
                                   QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
         ui->taskListWidget->clear();
+        taskList.clear();
     }
 }
 
@@ -102,28 +86,12 @@ void MainWindow::on_sortButton_clicked() {
         return a.deadline < b.deadline;
     });
 
-    ui->taskListWidget->clear();
-    QDate today = QDate::currentDate();
-
-    for (const TaskItem &task : taskList) {
-        int daysLeft = today.daysTo(task.deadline);
-        QString timeInfo;
-
-        if (daysLeft > 0) {
-            timeInfo = QString("%1 days left").arg(daysLeft);
-        } else if (daysLeft == 0) {
-            timeInfo = "Due today!";
-        } else {
-            timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
-        }
-
-        QString displayText = QString("%1 (Deadline: %2),      %3")
-                                  .arg(task.text)
-                                  .arg(task.deadline.toString("dd-MM-yyyy"))
-                                  .arg(timeInfo);
-
-        ui->taskListWidget->addItem(displayText);
+    qDebug() << "Sorted tasks:";
+    for (const TaskItem &item : taskList) {
+        qDebug() << "Text:" << item.title << ", Deadline:" << item.deadline.toString("dd-MM-yyyy");
     }
+
+    updateTaskListDisplay(); // Refresh UI after sort
 }
 
 void MainWindow::loadTasksFromFile() {
@@ -131,20 +99,73 @@ void MainWindow::loadTasksFromFile() {
 
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        // Optional: show a warning only if the file is expected to exist
         return; // Do nothing if the file doesn't exist
     }
 
     QTextStream in(&file);
     ui->taskListWidget->clear();  // Clear current tasks
+    taskList.clear();             // Clear internal task list
+
+    QRegularExpression re(R"(Deadline:\s*(\d{2}\.\d{2}\.\d{4}),\s*task:\s*(.+?)\s+(?:Due today!|\d+\s+days\s+left))");
 
     while (!in.atEnd()) {
-        QString line = in.readLine();
-        if (!line.trimmed().isEmpty()) {
-            ui->taskListWidget->addItem(line);
+        QString line = in.readLine().trimmed();
+        qDebug() << "Read line:" << line;
+
+        QRegularExpressionMatch match = re.match(line);
+        if (match.hasMatch()) {
+            QString dateStr = match.captured(1);  // e.g. 29.05.2025
+            QString taskTitle = match.captured(2);  // e.g. aamm
+
+            QDate deadline = QDate::fromString(dateStr, "dd.MM.yyyy");
+            if (deadline.isValid()) {
+                taskList.append({taskTitle, deadline});
+            }
         }
     }
 
     file.close();
+    updateTaskListDisplay();
+
+    qDebug() << "Loaded tasks:";
+    for (const TaskItem &item : taskList) {
+        qDebug() << "Text:" << item.title << ", Deadline:" << item.deadline.toString("dd-MM-yyyy");
+    }
 }
+
+
+
+void MainWindow::updateTaskListDisplay() {
+    ui->taskListWidget->clear();
+    qDebug() << "After clear(), listWidget has" << ui->taskListWidget->count() << "items.";
+
+    QDate today = QDate::currentDate();
+
+    for (const TaskItem &task : taskList) {
+        int daysLeft = today.daysTo(task.deadline);
+        QString timeInfo;
+
+        if (daysLeft > 0)
+            timeInfo = QString("%1 days left").arg(daysLeft);
+        else if (daysLeft == 0)
+            timeInfo = "Due today!";
+        else
+            timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
+
+        QString displayText = QString("Deadline: %2, task: %1      %3")
+                                  .arg(task.title)
+                                  .arg(task.deadline.toString("dd.MM.yyyy"))
+                                  .arg(timeInfo);
+
+        ui->taskListWidget->addItem(displayText);
+    }
+    qDebug() << "After addItem()'s, listWidget has" << ui->taskListWidget->count() << "items.";
+
+
+    qDebug() << "Tasks now in List:";
+    for (const TaskItem &item : taskList) {
+        qDebug() << "Text:" << item.title << ", Deadline:" << item.deadline.toString("dd.MM.yyyy");
+    }
+}
+
 

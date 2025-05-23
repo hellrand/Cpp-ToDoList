@@ -6,7 +6,7 @@
 #include <QVector>
 
 struct TaskItem {
-    QString text;
+    QString title;
     QDate deadline;
 };
 

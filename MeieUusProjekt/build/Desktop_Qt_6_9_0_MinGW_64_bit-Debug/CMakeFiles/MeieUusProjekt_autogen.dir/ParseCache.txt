@@ -379,6 +379,6 @@ C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/mainwindow.h
  mdp:C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
  mdp:C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/MeieUusProjekt_autogen/moc_predefs.h
  mdp:C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/mainwindow.h
-C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/main.cpp
 C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/mainwindow.cpp
  uic:./ui_mainwindow.h
+C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/main.cpp
