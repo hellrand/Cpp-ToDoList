@@ -17,14 +17,14 @@
    <widget class="QPushButton" name="addTaskButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>400</x>
       <y>10</y>
-      <width>101</width>
+      <width>111</width>
       <height>32</height>
      </rect>
     </property>
     <property name="text">
-     <string>Add task</string>
+     <string>Lisa</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="taskLineEdit">
@@ -41,7 +41,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>140</y>
+      <y>120</y>
       <width>601</width>
       <height>191</height>
      </rect>
@@ -63,7 +63,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Delete</string>
+     <string>Kustuta</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -76,7 +76,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Task name:</string>
+     <string>Task:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -84,12 +84,12 @@
      <rect>
       <x>30</x>
       <y>50</y>
-      <width>56</width>
+      <width>71</width>
       <height>19</height>
      </rect>
     </property>
     <property name="text">
-     <string>Deadline:</string>
+     <string>Tähtaeg:</string>
     </property>
    </widget>
    <widget class="QDateEdit" name="deadlineEdit">
@@ -119,52 +119,52 @@
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>360</y>
+      <y>320</y>
       <width>101</width>
       <height>32</height>
      </rect>
     </property>
     <property name="text">
-     <string>Delete all</string>
+     <string>Kustuta kõik</string>
     </property>
    </widget>
    <widget class="QPushButton" name="saveTasksButton">
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>360</y>
+      <y>320</y>
       <width>101</width>
       <height>32</height>
      </rect>
     </property>
     <property name="text">
-     <string>Save</string>
+     <string>Salvesta</string>
     </property>
    </widget>
    <widget class="QPushButton" name="sortButton">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>360</y>
+      <x>400</x>
+      <y>50</y>
       <width>111</width>
       <height>32</height>
      </rect>
     </property>
     <property name="text">
-     <string>Sort by deadline</string>
+     <string>Sorteeri</string>
     </property>
    </widget>
    <widget class="QPushButton" name="markDoneButton">
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>100</y>
+      <y>50</y>
       <width>101</width>
       <height>32</height>
      </rect>
     </property>
     <property name="text">
-     <string>Task Done</string>
+     <string>Tehtud</string>
     </property>
    </widget>
   </widget>
@@ -174,7 +174,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

@@ -15,14 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->deadlineEdit->setDate(QDate::currentDate());
 
-    // Connecting buttons
+    // Nuppude connectimine
     connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
     connect(ui->sortButton, &QPushButton::clicked, this, &MainWindow::on_sortButton_clicked);
-    //connect(ui->markDoneButton, &QPushButton::clicked, this, &MainWindow::on_markDoneButton_clicked);
 
-
-
-    // Loads all tasks from file on start
+    // Andmete sisse lugemine
     loadTasksFromFile();
 
 }
@@ -38,27 +35,30 @@ void MainWindow::on_addTaskButton_clicked() {
 
     if (!taskText.isEmpty()) {
         TaskItem task{taskText, deadline};
-        taskList.append(task);  // ✅ only modify the vector
+        taskList.append(task);
         ui->taskLineEdit->clear();
     }
-    updateTaskListDisplay();  // ✅ rebuild the entire list from the sorted/updated vector
+
+    updateTaskListDisplay();
 }
 
 void MainWindow::on_deleteButton_clicked() {
     int row = ui->taskListWidget->currentRow();
-    qDebug() << "Selected row:" << row;  // ← should NOT be -1
+    qDebug() << "Valitud rida:" << row;
 
     if (row >= 0) {
         QListWidgetItem *item = ui->taskListWidget->takeItem(row);
         delete item;
         taskList.remove(row);
+    } else {
+        QMessageBox::information(this, "Valimata", "Vali task mida kustutada");
     }
 }
 
 void MainWindow::on_deleteAllButton_clicked() {
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Confirm Delete All",
-                                  "Are you sure you want to delete all tasks?",
+    reply = QMessageBox::question(this, "Kustuta kõik?",
+                                  "Kas kustutan kõik?",
                                   QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
         ui->taskListWidget->clear();
@@ -66,19 +66,19 @@ void MainWindow::on_deleteAllButton_clicked() {
 
         QFile file("todolist.txt");
         if (file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
-            file.close();  // writing nothing truncates it
+            file.close();
         } else {
-            QMessageBox::warning(this, "Error", "Could not clear 'todolist.txt'");
+            QMessageBox::warning(this, "Error", "Ei saanud kõike kustutada");
         }
     }
 }
 
 void MainWindow::on_saveTasksButton_clicked() {
-    QString fileName = "todolist.txt";  // Save to fixed file name
+    QString fileName = "todolist.txt";
 
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::warning(this, "Error", "Cannot open 'todolist.txt' for writing.");
+        QMessageBox::warning(this, "Error", "Ei saa faili 'todolist.txt' avada.");
         return;
     }
 
@@ -89,16 +89,14 @@ void MainWindow::on_saveTasksButton_clicked() {
     }
 
     QMessageBox::StandardButton saved;
-    saved = QMessageBox::question(this, "Save & Exit",
-                                  "All tasks have been saved. Do you want to exit?",
+    saved = QMessageBox::question(this, "Salvesta & lahku",
+                                  "Kõik salvestatud. Kas soovite rakenduse sulgeda?",
                                   QMessageBox::Yes | QMessageBox::No);
     if (saved == QMessageBox::Yes) {
         file.close();
         QApplication::quit();
     }
     file.close();
-
-    //QMessageBox::information(this, "Saved", "All tasks saved to 'todolist.txt'.");
 }
 
 void MainWindow::on_sortButton_clicked() {
@@ -106,12 +104,12 @@ void MainWindow::on_sortButton_clicked() {
         return a.deadline < b.deadline;
     });
 
-    qDebug() << "Sorted tasks:";
+    qDebug() << "Sorteeritud taskid:";
     for (const TaskItem &item : taskList) {
-        qDebug() << "Text:" << item.title << ", Deadline:" << item.deadline.toString("dd-MM-yyyy");
+        qDebug() << "Nimi:" << item.title << ", Tähtaeg:" << item.deadline.toString("dd-MM-yyyy");
     }
 
-    updateTaskListDisplay(); // Refresh UI after sort
+    updateTaskListDisplay();
 }
 
 void MainWindow::loadTasksFromFile() {
@@ -119,23 +117,23 @@ void MainWindow::loadTasksFromFile() {
 
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return; // Do nothing if the file doesn't exist
+        return; // Kui faili pole, ei tee midagi
     }
 
     QTextStream in(&file);
-    ui->taskListWidget->clear();  // Clear current tasks
-    taskList.clear();             // Clear internal task list
+    ui->taskListWidget->clear();
+    taskList.clear();
 
-    QRegularExpression re(R"(Deadline:\s*(\d{2}\.\d{2}\.\d{4}),\s*task:\s*(.+?)\s+(?:Due today!|\d+\s+days\s+left))");
+    QRegularExpression re(R"(Tähtaeg:\s*(\d{2}\.\d{2}\.\d{4}),\s*task:\s*(.+?)\s+(?:TÄNA!|\d+\s+days\s+left))");
 
     while (!in.atEnd()) {
         QString line = in.readLine().trimmed();
-        qDebug() << "Read line:" << line;
+        qDebug() << "Loe rida:" << line;
 
         QRegularExpressionMatch match = re.match(line);
         if (match.hasMatch()) {
-            QString dateStr = match.captured(1);  // e.g. 29.05.2025
-            QString taskTitle = match.captured(2);  // e.g. aamm
+            QString dateStr = match.captured(1);
+            QString taskTitle = match.captured(2);
 
             QDate deadline = QDate::fromString(dateStr, "dd.MM.yyyy");
             if (deadline.isValid()) {
@@ -147,9 +145,9 @@ void MainWindow::loadTasksFromFile() {
     file.close();
     updateTaskListDisplay();
 
-    qDebug() << "Loaded tasks:";
+    qDebug() << "Leitud asjad:";
     for (const TaskItem &item : taskList) {
-        qDebug() << "Text:" << item.title << ", Deadline:" << item.deadline.toString("dd-MM-yyyy");
+        qDebug() << "Nimi:" << item.title << ", Tähtaeg:" << item.deadline.toString("dd-MM-yyyy");
     }
 }
 
@@ -157,7 +155,7 @@ void MainWindow::loadTasksFromFile() {
 
 void MainWindow::updateTaskListDisplay() {
     ui->taskListWidget->clear();
-    qDebug() << "After clear(), listWidget has" << ui->taskListWidget->count() << "items.";
+    qDebug() << "Pärast clear(), listWidgetil on" << ui->taskListWidget->count() << "asja.";
 
     QDate today = QDate::currentDate();
 
@@ -166,14 +164,14 @@ void MainWindow::updateTaskListDisplay() {
         QString timeInfo;
 
         if (daysLeft > 0)
-            timeInfo = QString("%1 days left").arg(daysLeft);
+            timeInfo = QString("%1 päeva pärast").arg(daysLeft);
         else if (daysLeft == 0)
-            timeInfo = "Due today!";
+            timeInfo = "TÄNA!";
         else
-            timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
+            timeInfo = QString("Oled hiljaks jäänud %1 päeva").arg(-daysLeft);
 
-        QString isDone = task.isDone ? " DONE " : "";
-        QString displayText = QString("Deadline: %2, task: %1      %3 %4")
+        QString isDone = task.isDone ? " TEHTUD " : "";
+        QString displayText = QString("Tähtaeg: %2, task: %1      %3 %4")
                                   .arg(task.title)
                                   .arg(task.deadline.toString("dd.MM.yyyy"))
                                   .arg(timeInfo)
@@ -182,24 +180,24 @@ void MainWindow::updateTaskListDisplay() {
 
         ui->taskListWidget->addItem(displayText);
     }
-    qDebug() << "After addItem()'s, listWidget has" << ui->taskListWidget->count() << "items.";
+    qDebug() << "Pärast addItem()'s, listWidgetil on" << ui->taskListWidget->count() << "asja.";
 
 
-    qDebug() << "Tasks now in List:";
+    qDebug() << "Taskid listist:";
     for (const TaskItem &item : taskList) {
-        qDebug() << "Text:" << item.title << ", Deadline:" << item.deadline.toString("dd.MM.yyyy");
+        qDebug() << "Nimi:" << item.title << ", Tähtaeg:" << item.deadline.toString("dd.MM.yyyy");
     }
 }
 
 void MainWindow::on_markDoneButton_clicked() {
      qDebug() << "on_markDoneButton_clicked() called";
     int row = ui->taskListWidget->currentRow();
-    qDebug() << "Selected row:" << row;  // ← should NOT be -1
+    qDebug() << "Valitud rida:" << row;
     if (row >= 0 && row < taskList.size()) {
         taskList[row].isDone = true;
         updateTaskListDisplay();
     } else {
-        QMessageBox::information(this, "No Selection", "Please select a task to mark as done.");
+        QMessageBox::information(this, "Valimata", "Vali task mida tehtuks märkida");
     }
 }
 
