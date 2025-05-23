@@ -88,8 +88,17 @@ void MainWindow::on_saveTasksButton_clicked() {
         out << item->text() << "\n";
     }
 
+    QMessageBox::StandardButton saved;
+    saved = QMessageBox::question(this, "Save & Exit",
+                                  "All tasks have been saved. Do you want to exit?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (saved == QMessageBox::Yes) {
+        file.close();
+        QApplication::quit();
+    }
     file.close();
-    QMessageBox::information(this, "Saved", "All tasks saved to 'todolist.txt'.");
+
+    //QMessageBox::information(this, "Saved", "All tasks saved to 'todolist.txt'.");
 }
 
 void MainWindow::on_sortButton_clicked() {
