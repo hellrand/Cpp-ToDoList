@@ -17,7 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connecting buttons
     connect(ui->addTaskButton, &QPushButton::clicked, this, &MainWindow::on_addTaskButton_clicked);
-    //connect(ui->sortButton, &QPushButton::clicked, this, &MainWindow::on_sortButton_clicked);
+    connect(ui->sortButton, &QPushButton::clicked, this, &MainWindow::on_sortButton_clicked);
+    //connect(ui->markDoneButton, &QPushButton::clicked, this, &MainWindow::on_markDoneButton_clicked);
+
 
 
     // Loads all tasks from file on start
@@ -38,12 +40,14 @@ void MainWindow::on_addTaskButton_clicked() {
         TaskItem task{taskText, deadline};
         taskList.append(task);  // ✅ only modify the vector
         ui->taskLineEdit->clear();
-        updateTaskListDisplay();  // ✅ rebuild the entire list from the sorted/updated vector
     }
+    updateTaskListDisplay();  // ✅ rebuild the entire list from the sorted/updated vector
 }
 
 void MainWindow::on_deleteButton_clicked() {
     int row = ui->taskListWidget->currentRow();
+    qDebug() << "Selected row:" << row;  // ← should NOT be -1
+
     if (row >= 0) {
         QListWidgetItem *item = ui->taskListWidget->takeItem(row);
         delete item;
@@ -59,6 +63,13 @@ void MainWindow::on_deleteAllButton_clicked() {
     if (reply == QMessageBox::Yes) {
         ui->taskListWidget->clear();
         taskList.clear();
+
+        QFile file("todolist.txt");
+        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
+            file.close();  // writing nothing truncates it
+        } else {
+            QMessageBox::warning(this, "Error", "Could not clear 'todolist.txt'");
+        }
     }
 }
 
@@ -152,10 +163,13 @@ void MainWindow::updateTaskListDisplay() {
         else
             timeInfo = QString("Overdue by %1 days").arg(-daysLeft);
 
-        QString displayText = QString("Deadline: %2, task: %1      %3")
+        QString isDone = task.isDone ? " DONE " : "";
+        QString displayText = QString("Deadline: %2, task: %1      %3 %4")
                                   .arg(task.title)
                                   .arg(task.deadline.toString("dd.MM.yyyy"))
-                                  .arg(timeInfo);
+                                  .arg(timeInfo)
+                                  .arg(isDone);
+
 
         ui->taskListWidget->addItem(displayText);
     }
@@ -168,4 +182,15 @@ void MainWindow::updateTaskListDisplay() {
     }
 }
 
+void MainWindow::on_markDoneButton_clicked() {
+     qDebug() << "on_markDoneButton_clicked() called";
+    int row = ui->taskListWidget->currentRow();
+    qDebug() << "Selected row:" << row;  // ← should NOT be -1
+    if (row >= 0 && row < taskList.size()) {
+        taskList[row].isDone = true;
+        updateTaskListDisplay();
+    } else {
+        QMessageBox::information(this, "No Selection", "Please select a task to mark as done.");
+    }
+}
 

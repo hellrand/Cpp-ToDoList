@@ -38,6 +38,7 @@ public:
     QPushButton *deleteAllButton;
     QPushButton *saveTasksButton;
     QPushButton *sortButton;
+    QPushButton *markDoneButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -58,7 +59,7 @@ public:
         taskListWidget->setObjectName("taskListWidget");
         taskListWidget->setGeometry(QRect(20, 140, 601, 191));
         taskListWidget->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-        taskListWidget->setSortingEnabled(true);
+        taskListWidget->setSortingEnabled(false);
         deleteButton = new QPushButton(centralwidget);
         deleteButton->setObjectName("deleteButton");
         deleteButton->setGeometry(QRect(520, 10, 101, 32));
@@ -82,10 +83,13 @@ public:
         sortButton = new QPushButton(centralwidget);
         sortButton->setObjectName("sortButton");
         sortButton->setGeometry(QRect(270, 360, 111, 32));
+        markDoneButton = new QPushButton(centralwidget);
+        markDoneButton->setObjectName("markDoneButton");
+        markDoneButton->setGeometry(QRect(520, 100, 101, 32));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 33));
+        menubar->setGeometry(QRect(0, 0, 800, 25));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -107,6 +111,7 @@ public:
         deleteAllButton->setText(QCoreApplication::translate("MainWindow", "Delete all", nullptr));
         saveTasksButton->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
         sortButton->setText(QCoreApplication::translate("MainWindow", "Sort by deadline", nullptr));
+        markDoneButton->setText(QCoreApplication::translate("MainWindow", "Task Done", nullptr));
     } // retranslateUi
 
 };

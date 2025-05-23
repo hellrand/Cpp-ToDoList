@@ -8,6 +8,7 @@
 struct TaskItem {
     QString title;
     QDate deadline;
+    bool isDone = false;
 };
 
 QT_BEGIN_NAMESPACE
@@ -32,6 +33,7 @@ private slots:
     void on_deleteAllButton_clicked();
     void on_saveTasksButton_clicked();
     void on_sortButton_clicked();
+    void on_markDoneButton_clicked();
 
 
 private:

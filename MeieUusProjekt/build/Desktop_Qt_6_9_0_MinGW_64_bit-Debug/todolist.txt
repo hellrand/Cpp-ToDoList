@@ -1,4 +1,3 @@
-Deadline: 06.06.2025, task: ammmmu      14 days left
-Deadline: 23.05.2025, task: carusmari      Due today!
-Deadline: 23.05.2025, task: kipp      Due today!
-Deadline: 29.05.2025, task: aamm      6 days left
+Deadline: 24.05.2025, task: carus      1 days left 
+Deadline: 27.05.2025, task: trulla      4 days left  DONE 
+Deadline: 31.05.2025, task: aabits      8 days left  DONE 
