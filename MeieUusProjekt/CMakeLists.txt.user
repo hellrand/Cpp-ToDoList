@@ -445,11 +445,7 @@
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-<<<<<<< HEAD
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/elsvalte/Desktop/c++/Cpp-ToDoList/MeieUusProjekt/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug</value>
-=======
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/beatrice/Desktop/ülikool/K25/C++/MeieUusProjekt/build/Qt_6_9_0_for_macOS-Debug/MeieUusProjekt.app/Contents/MacOS</value>
->>>>>>> 3399e4b (added stylesheet)
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
