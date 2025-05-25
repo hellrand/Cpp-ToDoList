@@ -1,0 +1,9 @@
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/MeieUusProjekt.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/edit_cache.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/rebuild_cache.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/list_install_components.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/install.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/install/local.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/install/strip.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/MeieUusProjekt_autogen_timestamp_deps.dir
+/Users/beatrice/Desktop/ülikool/K25/C++/Cpp-ToDoList/MeieUusProjekt/build/CMakeFiles/MeieUusProjekt_autogen.dir

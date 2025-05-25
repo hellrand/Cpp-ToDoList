@@ -83,10 +83,12 @@ void MainWindow::on_saveTasksButton_clicked() {
     }
 
     QTextStream out(&file);
-    for (int i = 0; i < ui->taskListWidget->count(); ++i) {
-        QListWidgetItem *item = ui->taskListWidget->item(i);
-        out << item->text() << "\n";
+    for (const TaskItem &task : taskList) {
+        out << task.deadline.toString("dd.MM.yyyy") << ";"
+        << task.title << ";"
+        << (task.isDone ? "1" : "0") << "\n";
     }
+
 
     QMessageBox::StandardButton saved;
     saved = QMessageBox::question(this, "Salvesta & lahku",
@@ -124,23 +126,21 @@ void MainWindow::loadTasksFromFile() {
     ui->taskListWidget->clear();
     taskList.clear();
 
-    QRegularExpression re(R"(Tähtaeg:\s*(\d{2}\.\d{2}\.\d{4}),\s*task:\s*(.+?)\s+(?:TÄNA!|\d+\s+days\s+left))");
-
     while (!in.atEnd()) {
         QString line = in.readLine().trimmed();
-        qDebug() << "Loe rida:" << line;
+        QStringList parts = line.split(";");
 
-        QRegularExpressionMatch match = re.match(line);
-        if (match.hasMatch()) {
-            QString dateStr = match.captured(1);
-            QString taskTitle = match.captured(2);
+        if (parts.size() == 3) {
+            QDate deadline = QDate::fromString(parts[0], "dd.MM.yyyy");
+            QString title = parts[1];
+            bool isDone = (parts[2] == "1");
 
-            QDate deadline = QDate::fromString(dateStr, "dd.MM.yyyy");
             if (deadline.isValid()) {
-                taskList.append({taskTitle, deadline});
+                taskList.append({title, deadline, isDone});
             }
         }
     }
+
 
     file.close();
     updateTaskListDisplay();
